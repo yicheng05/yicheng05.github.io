@@ -1,0 +1,18 @@
+/* Here is your custom css styles. */
+@font-face{
+    font-family:'s';
+    src:url('../diy-font/s.ttf');
+}
+body{
+    font-family:'s';
+ }
+
+
+@font-face{
+    font-family: 'b';
+    src:url('../diy-font/b.ttf');
+}
+
+.diyFont{
+    font-family: 'b';
+}

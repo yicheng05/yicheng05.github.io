@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>GitHub+Hexo 搭建个人网站详细教程</title>
+      <link href="/2022/05/21/GitHub-Hexo-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
+      <url>/2022/05/21/GitHub-Hexo-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>——————–此文章为转载，原文章为<a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a>———————<br><img src="https://pica.zhimg.com/v2-d4c1239e75c02e8482c22017a6c8d407_1440w.jpg?source=172ae18b"><br>*前言：</p><p>随着互联网浪潮的翻腾，国内外涌现出越来越多优秀的社交网站让用户分享信息更加便捷。然后，如果你是一个不甘寂寞的程序猿（媛），是否也想要搭建一个属于自己的个人网站，如果你曾经或者现在正有这样的想法，请跟随这篇文章发挥你的Geek精神，让你快速拥有自己的博客网站，写文章记录生活，享受这种从0到1的过程。</p><p>你见过的最棒的个人博客界面是什么样的？</p><p>*什么是Hexo ?<br><img src="https://pic2.zhimg.com/80/v2-6890485c84748900d9dae824b7f7cbb1_720w.jpg"></p><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Heroku上，是搭建博客的首选框架。这里我们选用的是GitHub，你没看错，全球最大的同性恋交友网站（逃……）。Hexo同时也是GitHub上的开源项目，参见：hexojs&#x2F;hexo 如果想要更加全面的了解Hexo，可以到其官网 Hexo 了解更多的细节，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。这里，默认各位猿&#x2F;媛儿都知道GitHub就不再赘述。</p><p>这是我的个人博客效果: 吴润 · RunDouble</p><p>下面正式从零开始搭建年轻人的第一个网站。</p><p>*搭建步骤：<br>获得个人网站域名<br>GitHub创建个人仓库<br>安装Git<br>安装Node.js<br>安装Hexo<br>推送网站<br>绑定域名<br>更换主题<br>初识MarkDown语法<br>发布文章<br>寻找图床<br>个性化设置<br>其他<br>附录</p><p>*获得个人网站域名</p><p>域名是网站的入口，也是网站的第一印象，比如饿了么的官网的域名是：<a href="https://www.ele.me/">https://www.ele.me/</a> ，很是巧妙。常见的有com,cn,net,org等后缀，也有小众的xyz,me,io等后缀，根据你自己的喜好，选择不同的后缀，比如我选择就是常见的com后缀。很多小众奇特的后缀在大陆是没办法备案的，网站也就无法上线。然而使用GitHub托管我们的网站，完全不需要备案，因为托管我们的网站内容的服务器在美国，而且在国内备案流程也比较繁杂，时间需要一周左右。</p><p>申请域名的地方有很多，这里推荐阿里云：阿里云-为了无法计算的价值 申请入口：域名注册 购买域名这也是我们整个搭建过程中惟一一个需要花钱的地方。如果你已经有了空闲域名就无需购买，直接使用即可。</p><p>*GitHub创建个人仓库</p><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：Build software better, together 点击GitHub中的New repository创建新仓库，仓库名应该为：用户名.<a href="http://github.io/">http://github.io</a> 这个用户名使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：<br><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><p>*安装Git</p><p>什么是Git ?简单来说Git是开源的分布式版本控制系统，用于敏捷高效地处理项目。我们网站在本地搭建好了，需要使用Git同步到GitHub上。如果想要了解Git的细节，参看廖雪峰老师的Git教程：Git教程 从Git官网下载：Git - Downloading Package 现在的机子基本都是64位的，选择64位的安装包，下载后安装，在命令行里输入git测试是否安装成功，若安装失败，参看其他详细的Git安装教程。安装成功后，将你的Git与GitHub帐号绑定，鼠标右击打开Git Bash<br><img src="https://pic3.zhimg.com/80/v2-8b1cbe253d6e0301bd9a68c6f98a9f52_720w.jpg"></p><p>或者在菜单里搜索Git Bash，设置user.name和user.email配置信息：</p><p>git config –global user.name “你的GitHub用户名”<br>git config –global user.email “你的GitHub注册邮箱”<br>生成ssh密钥文件：</p><p>ssh-keygen -t rsa -C “你的GitHub注册邮箱”<br>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹中的id_rsa.pub密钥，将内容全部复制<br><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开GitHub_Settings_keys 页面，新建new SSH Key<br><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#109;">&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#109;</a> ：<br><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><p>*安装Node.js</p><p>Hexo基于Node.js，Node.js下载地址：Download | Node.js 下载安装包，注意安装Node.js会包含环境变量及npm的安装，安装后，检测Node.js是否安装成功，在命令行中输入 node -v :<br><img src="https://pic1.zhimg.com/80/v2-76ea38e9545e606f975781e47933b010_720w.jpg"></p><p>检测npm是否安装成功，在命令行中输入npm -v :<br><img src="https://pic2.zhimg.com/80/v2-bede250b8456df92475b455fda8c1dd9_720w.jpg"></p><p>到这了，安装Hexo的环境已经全部搭建完成。</p><p>*安装Hexo</p><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg"></p><p>使用npm命令安装Hexo，输入：</p><p>npm install -g hexo-cli </p><p>这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</p><p>hexo init blog<br>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><p>hexo new test_my_site</p><p>hexo g</p><p>hexo s<br>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客，只不过我下图是我修改过的配置，和你的显示不一样。<br><img src="https://pic4.zhimg.com/80/v2-123e73c0630d299b1c856d99b04b55bb_720w.jpg"></p><p>现在来介绍常用的Hexo 命令</p><p>npm install hexo -g *安装Hexo<br>npm update hexo -g *升级<br>hexo init *初始化博客</p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” *新建文章<br>hexo g &#x3D;&#x3D; hexo generate *生成<br>hexo s &#x3D;&#x3D; hexo server *启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy *部署</p><p>hexo server *Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s *静态模式<br>hexo server -p 5000 *更改端口<br>hexo server -i 192.168.1.1 *自定义 IP<br>hexo clean *清除缓存，若是网页正常情况下可以忽略这条命令</p><p>刚刚的三个命令依次是新建一篇博客文章、生成网页、在本地预览的操作。</p><p>*推送网站</p><p>上面只是在本地预览，接下来要做的就是就是推送网站，也就是发布网站，让我们的网站可以被更多的人访问。在设置之前，需要解释一个概念，在blog根目录里的_config.yml文件称为站点配置文件，如下图<br><img src="https://pic2.zhimg.com/80/v2-cb1fd5e5a2e73f513234e434724c7c55_720w.jpg"></p><p>进入根目录里的themes文件夹，里面也有个_config.yml文件，这个称为主题配置文件，如下图<br><img src="https://pic4.zhimg.com/80/v2-4252029e5634bf91c7d58916ae2b8ac3_720w.jpg"></p><p>下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><p>deploy:<br>type: git<br>repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git<br>branch: master参考如下：</p><p>*保存站点配置文件</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><p>npm install hexo-deployer-git –save</p><p>这时，我们分别输入三条命令：</p><p>hexo clean<br>hexo g<br>hexo d<br>其实第三条的 hexo d 就是部署网站命令，d是deploy的缩写。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="http://xxxx.github.io/">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><p>*绑定域名</p><p>虽然在Internet上可以访问我们的网站，但是网址是GitHub提供的:<a href="http://xxxx.github.io/">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样) 而我们想使用我们自己的个性化域名，这就需要绑定我们自己的域名。这里演示的是在阿里云万网的域名绑定，在国内主流的域名代理厂商也就阿里云和腾讯云。登录到阿里云，进入管理控制台的域名列表，找到你的个性化域名，进入解析<br><img src="https://pic3.zhimg.com/80/v2-47323ad4490e206aef93a3d68f0670b6_720w.jpg"></p><p>然后添加解析<br><img src="https://pic3.zhimg.com/80/v2-40222b3a295bb692aac22829a8ec3be2_720w.jpg"></p><p>包括添加三条解析记录，192.30.252.153是GitHub的地址，你也可以ping你的 <a href="http://xxxx.github.io/">http://xxxx.github.io</a> 的ip地址，填入进去。第三个记录类型是CNAME，CNAME的记录值是：你的用户名.<a href="http://github.io/">http://github.io</a> 这里千万别弄错了。第二步，登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入你的域名<br><img src="https://pic4.zhimg.com/80/v2-85ba6dda906f22dea4c03df2b47d994b_720w.jpg"></p><p>点击save保存。第三步，进入本地博客文件夹 ，进入blog&#x2F;source目录下，创建一个记事本文件，输入你的域名，对，只要写进你自己的域名即可。如果带有www，那么以后访问的时候必须带有www完整的域名才可以访问，但如果不带有www，以后访问的时候带不带www都可以访问。所以建议，不要带有www。这里我还是写了www(不建议带有www):<br><img src="https://pic1.zhimg.com/80/v2-79abfff91af3f520e24cb91acf6aa994_720w.jpg"></p><p>保存，命名为CNAME ，注意保存成所有文件而不是txt文件。</p><p>完成这三步，进入blog目录中，按住shift键右击打开命令行，依次输入：</p><p>hexo clean<br>hexo g<br>hexo d<br>这时候打开浏览器在地址栏输入你的个性化域名将会直接进入你自己搭建的网站。</p><p>*更换主题</p><p>如果你不喜欢Hexo默认的主题，可以更换不同的主题，主题传送门：Themes 我自己使用的是Next主题，可以在blog目录中的themes文件夹中查看你自己主题是什么。现在把默认主题更改成Next主题，在blog目录中（就是命令行的位置处于blog目录）打开命令行输入：</p><p>git clone <a href="https://github.com/iissnan/hexo-theme-next">https://github.com/iissnan/hexo-theme-next</a> themes&#x2F;next<br>这是将Next主题下载到blog目录的themes主题下的next文件夹中。打开站点的_config.yml配置文件，修改主题为next<br><img src="https://pic1.zhimg.com/80/v2-b1997377e82408cb15b485c65ae00f70_720w.jpg"></p><p>打开主题的_config.yml配置文件，不是站点主题文件，找到Scheme Settings<br><img src="https://pic2.zhimg.com/80/v2-1ac152c4aabe4c10b762ee27552f1105_720w.jpg"></p><p>next主题有三个样式，我用的是Pisces，你们可以自己试试看，选择你自己喜欢的样式（只需要把行首的<em>去除，</em>是注释），选择好后，再次部署网站，hexo g、hexo d，查看效果。选择其他主题，按照上述过程即可实现。</p><p>初识Markdown语法</p><p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。Markdown语法简洁明了、容易掌握，而且功能比纯文本更强，因此写博客使用它，可以让用户更加专注的写文章，而不需要费尽心力的考虑样式，相对于html已经算是轻量级语言，像有道云笔记也支持Markdown写作。并且Markdown完全兼容html，也就是可以在文章里直接插入html代码。比如给博文添加音乐，就可以直接把音乐的外链html代码插入文章中。具体语法参看：Markdown 语法说明(简体中文版) 可以说十分钟就可以入门。当然，工欲善其事必先利其器，选择一个好的Markdown编辑器也是非常重要的，这里推荐MarkPad 和The Markdown Editor for Windows ，这是带有预览效果的编辑器，也可以使用本地的文本编辑器，更多的Markdown的语法与编辑器自己可以搜索了解。</p><p>*发布文章</p><p>我们开始正式发布上线博客文章，在命令行中输入：</p><p>hexo n “博客名字”</p><p>我们会发现在blog根目录下的source文件夹中的_post文件夹中多了一个 博客名字.md 文件，使用Markdown编辑器打开，就可以开始你的个人博客之旅了，Markdown常用的样式也就十来种，完全能够满足一般博文的样式要求，这是我的一篇博文内容示例：<br><img src="https://pic1.zhimg.com/80/v2-4f96cd03a88e68b8ae86c38bfb0808ac_720w.jpg"></p><p>通过带有预览样式的Markdown编辑器实时预览书写的博文样式，也可以通过命令 hexo s –debug 在本地浏览器的localhost:4000 预览博文效果。写好博文并且样式无误后，通过hexo g、hexo d 生成、部署网页。随后可以在浏览器中输入域名浏览。</p><p>*寻找图床</p><p>图床，当博文中有图片时，若是少量图片，可以直接把图片存放在source文件夹中，但这显然不合理的，因为图片会占据大量的存储的空间，加载的时候相对缓慢 ，这时考虑把博文里的图片上传到某一网站，然后获得外部链接，使用Markdown语法，<img src="/.io//%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5" alt="图片信息"> 完成图片的插入，这种网站就被成为图床。常见的简易的图床网站有：贴图库图片外链 国内算比较好的图床我认为有两个：新浪微博和 七牛云 ，七牛云的使用方法可以参看其他文章。图床最重要的就是稳定速度快，所以在挑选图床的时候一定要仔细，下图是博文插入图片，使用图床外链的示例：<br><img src="https://pic4.zhimg.com/80/v2-92372e522595af139ace5f371aae3ff3_720w.jpg"></p><p>*个性化设置</p><p>所谓的个性化设置就是根据个人需要添加不同的插件及功能。</p><p>基本的有：</p><p>在站点配置文件_config.yml修改基本的站点信息<br><img src="https://pic4.zhimg.com/80/v2-78bc0e4e6498c9c3cb269b3254d8379f_720w.jpg"></p><p>依次是网站标题、副标题、网站描述、作者、网站头像外部链接、网站语言、时区等。</p><p>在主题配置文件_config.yml修改基本的主题信息，如：<br><img src="https://pic2.zhimg.com/80/v2-451c5cb2fd6516650ad8ca608031bf0d_720w.jpg"></p><p>博文打赏的微信、支付宝二维码图片，这里我是直接把这两张放在根目录的source文件夹中，并没有使用图床外链。</p><p>社交外链的设置，即在侧栏展示你的个人社交网站信息。<br><img src="https://pic4.zhimg.com/80/v2-5b3f6e02e0d3a0cdb685a4d2fd2718cb_720w.jpg"></p><p>博文分享的插件jiathis，值设置为true。在配置文件中有很多的个性化设置，可以自尝试更多的修改。</p><p>进阶个性化：</p><p>添加网易云音乐</p><p>打开网页版的网易云音乐，选择喜欢的音乐，点击生成外链播放器<br><img src="https://pic2.zhimg.com/80/v2-fcb7d44ccdca3760c98db0d13817f2b5_720w.jpg"></p><p>复制外链的代码<br><img src="https://pic4.zhimg.com/80/v2-16eec195312cde7b1d257fac6f3c8d0b_720w.jpg"></p><p>比如在侧栏插入这首歌的音乐播放器，修改 blog\themes\next\layout_macro的sidebar.swig文件，添加刚刚复制的外链代码<br><img src="https://pic4.zhimg.com/80/v2-03db51002497b27e4d5888e0efd577c7_720w.jpg"></p><p>重新生成、部署网页，效果如下<br><img src="https://pic2.zhimg.com/80/v2-3d587bf919df92db38e2608f034e50f1_720w.jpg"></p><p>设置背景</p><p>把你挑选的背景图片命名为：background.jpg，放在blog\themes\next\source\images里，在blog\themes\next\source\css_custom文件的custom.styl首部添加：</p><p>body {<br>  background:url(&#x2F;images&#x2F;background.jpg);<br>  background-attachment: fixed;<br>}<br>background-attachment: fixed;是固定背景图片。</p><p>这是设置一张静态图片作为背景，其实Next主题自带有动态的背景效果，修改主题配置文件中的canvas_nest: false为canvas_nest: true即可。</p><p>增加侧栏菜单条目<br>默认的侧栏菜单条目有：首页、归档、标签、关于、搜索等。如果你想要增加其他的菜单条目，修改主题配置文件_config.yml里的Menu Settings中的menu和menu_icons两个地方<br><img src="https://pic3.zhimg.com/80/v2-666a22fedbba95d979eeb26e52fc29e2_720w.jpg"></p><p>其中menu里是配置菜单项对应的页面位置（如：&#x2F;love），menu_icons对应菜单项的图标，这里的图标是来自于Font Awesome ，所以你需要在Font Awesome网站上找到你需要的icon，然后把该icon的名字写在menu_icons对应菜单名后面，注意冒号有一个英文输入状态的空格。设置好后，在命令行里输入：</p><p>hexo new page “你所要增加的菜单项名称（要和你在menu中的填写要匹配）”<br>新建的页面在博客根目录下的source文件里，这时你就可以对新建的页面自定义设计。</p><p>还有更多的进阶个性化设置，如SEO、评论系统、个人头像、博客分享、订阅功能、High功能、404网页设置等，可以参看：</p><p><a href="https://link.zhihu.com/?target=http://theme-next.iissnan.com/theme-settings.html">主题配置 - NexT 使用文档</a></p><p><a href="https://link.zhihu.com/?target=http://theme-next.iissnan.com/third-party-services.html">第三方服务集成 - NexT 使用文档</a></p><p><a href="https://link.zhihu.com/?target=http://theme-next.iissnan.com/tag-plugins.html">内置标签 - NexT 使用文</a></p><p><a href="https://link.zhihu.com/?target=http://theme-next.iissnan.com/advanced-settings.html">档进阶设定 - NexT 使用文档</a></p><p><a href="https://link.zhihu.com/?target=http://www.iamlj.com/2016/08/add-special-effect-harlem-shake-for-hexo/">为Hexo Next主题添加哈林摇特效（五）</a></p><p>其他</p><p>终于写到这里了，也算是基本圆满完成了我的写作初衷，总结自己的一些经验，分享一些有趣的东西，不过脖子也是僵硬的受不了。我知道很多人想要建立自己的个人网站却一直没有付诸行动，希望这篇文章能给你一点点灵感与想法，just do it。本文是windows平台的搭建过程，其他平台可以参看相关资料，也有很多其他优秀的博客框架值得学习。如果有任何建议或想法、或疑问欢迎在评论区交流， 做好的网站不妨在评论区贴出网址，让大家一起学习。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一款免费的图床</title>
+      <link href="/2022/05/21/%E4%B8%80%E6%AC%BE%E5%85%8D%E8%B4%B9%E7%9A%84%E5%9B%BE%E5%BA%8A/"/>
+      <url>/2022/05/21/%E4%B8%80%E6%AC%BE%E5%85%8D%E8%B4%B9%E7%9A%84%E5%9B%BE%E5%BA%8A/</url>
+      
+        <content type="html"><![CDATA[<p>这是一款免费的图床，容量无限制，就是网站速度很慢，上传速度还行，用来备份照片也不错，单张最大20MB<br>主要功能如下<br><img src="https://www.helloimg.com/images/2022/05/21/ZGqluz.png"><br><img src="https://www.helloimg.com/images/2022/05/21/ZGxt5T.png"><br><img src="https://www.helloimg.com/images/2022/05/21/ZGx4s1.png"><br>网址：<a href="https://www.helloimg.com/">https://www.helloimg.com/</a><br>就这么多</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>这回不能一眼顶针了</title>
+      <link href="/2022/05/21/%E8%BF%99%E5%9B%9E%E4%B8%8D%E8%83%BD%E4%B8%80%E7%9C%BC%E9%A1%B6%E9%92%88%E4%BA%86/"/>
+      <url>/2022/05/21/%E8%BF%99%E5%9B%9E%E4%B8%8D%E8%83%BD%E4%B8%80%E7%9C%BC%E9%A1%B6%E9%92%88%E4%BA%86/</url>
+      
+        <content type="html"><![CDATA[<p>来自战雷官方玩梗<br><img src="https://tiebapic.baidu.com/forum/pic/item/48ef4dd8bc3eb1359c2f1d6ce31ea8d3ff1f4467.jpg?tbpicau=2022-05-23-05_e35782b8c5ea2ae4511437fe533951ac"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信刷步数教程</title>
+      <link href="/2022/05/20/%E5%BE%AE%E4%BF%A1%E5%88%B7%E6%AD%A5%E6%95%B0%E6%95%99%E7%A8%8B/"/>
+      <url>/2022/05/20/%E5%BE%AE%E4%BF%A1%E5%88%B7%E6%AD%A5%E6%95%B0%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>还在到处找支付宝微信刷步数的方法吗？</p><p>你的蚂蚁绿色能量每日依旧少的可怜吗？</p><p>你还在羡慕其他人每天的运动步数吗？</p><p>今天我给大家带来的这个教程将解决大家的这些烦恼，iOS和安卓通用。</p><p>好了，废话不多说，我们直接开始教程。</p><p>步骤一</p><p>下载APP小米运动</p><p>步骤二</p><p>手机号注册小米运动APP ！手机号注册！手机号注册！</p><p>步骤三</p><p>去第三方接入，选择微信，保存二维码，微信识别并点击绑定设备。如下图<br><img src="https://p2.itc.cn/images01/20210731/cabd2aa7e4514c778528fa221c22a451.jpeg"><br><img src="https://p2.itc.cn/images01/20210731/60e97f8e9ae144bcb74fdf734e91ef6c.jpeg"><br><img src="https://p0.itc.cn/images01/20210731/3545c1a7765c44d790dc7d0a3945e606.jpeg"><br><img src="https://p2.itc.cn/images01/20210731/37f1cbc1b97746fa9ed6e692eff6ac70.jpeg"><br><img src="https://p5.itc.cn/images01/20210731/dc741db30fba4e248c00bcc0fd08b2b5.jpeg"><br><img src="https://p2.itc.cn/images01/20210731/f06a1f9e60f54e60b0499a0d96340b79.jpeg"></p><p>刷步数地址：<a href="http://shuabu.135top.com/">http://shuabu.135top.com/</a></p><p>说明：账号密码为小米运动app的账号密码</p><p>需要绑定微信支付宝才能修改微信支付宝的步数。</p><p>提交完以后去微信等查看步数有无变化，不要频繁提交。</p><p>步数尽量别修改太大，按需求修改</p><p>常见问题</p><p>问：这个微信刷步数的方法是免费的吗？</p><p>答: 这个在线刷步数方法是完全免费使用的。</p><p>问：刷步数的上限是多少？</p><p>答: 网站本身没有设置上限，上限由微信或者支付宝自己控制。目前微信的步数上限是 98800 步，支付宝运动步数的上限是 10 万步</p><p>问：为什么我提交了微信却显示0步？</p><p>答：没有关联成功，或者微信运动被封。</p><p>问：用修改步数会封号吗？</p><p>答：不会，如果刷的步数过多或被举报会封微信运动，等7天后解封就好了。</p><p>蚂蚁森林收能量小技巧</p><p>有车一族，每周少开一天车，可以领1.4kg能量</p><p>买火车票，在免费退票期内退掉，一张136g，一个月10次，1.36kg</p><p>和同事同学朋友互交水电费，一次262g，一个月10次（须不同水电账户），2.62kg</p><p>走路，每天下午7点前，设置时间同步关掉，设置为-11时区，再运动健康里手动同步，然后再同步时间，每天296g</p><p>紧急通知</p><p>小米不定时开始封禁账号，导致无法刷步，附解决办法！</p><ol><li><p>进入小米运动 APP 点 - 我的 - 设置 - 账号与安全 - 点注销账号 - 点清除数据（实测几分钟）。</p></li><li><p>完事之后在重新绑定需要同步的应用，即可继续使用捷径刷步数（无需更新）。</p></li><li><p>如果还是不能用，那就注销账号重新注册，再试。</p></li><li><p>如还是不能用，那我就无能为力了，我能做的就只有这些，我不是小米官方</p></li></ol><p>正确的使用姿势：</p><p>每次刷步数不要超过 3W，每刷成功一次，间隔几个小时，再进行第二次刷步数，即可稳定，不被限制账号；</p><p>例：8 点刷步数 1W，10 点刷步数 2W，12 点刷步数 3W，14 点刷步数 5W ，一次类推，可保证上步数的稳定性</p><p>半夜不要刷步数会不同步，最好在早上 9 点到晚上 23 点这段时间去刷</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>好家伙！自动写文章，还提供网页直接用...</title>
+      <link href="/2022/05/19/%E5%A5%BD%E5%AE%B6%E4%BC%99%EF%BC%81%E8%87%AA%E5%8A%A8%E5%86%99%E6%96%87%E7%AB%A0%EF%BC%8C%E8%BF%98%E6%8F%90%E4%BE%9B%E7%BD%91%E9%A1%B5%E7%9B%B4%E6%8E%A5%E7%94%A8/"/>
+      <url>/2022/05/19/%E5%A5%BD%E5%AE%B6%E4%BC%99%EF%BC%81%E8%87%AA%E5%8A%A8%E5%86%99%E6%96%87%E7%AB%A0%EF%BC%8C%E8%BF%98%E6%8F%90%E4%BE%9B%E7%BD%91%E9%A1%B5%E7%9B%B4%E6%8E%A5%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p>我小最怕的就是写作文，现在经常敲代码写博客（包括这篇），太真实！哎……</p><p>写作文，或者写一段文字，成为无数学生的噩梦，我最近逛Github发现了一个好玩的项目，叫做【BullshitGenerator】</p><p>项目地址是：</p><p><a href="https://github.com/menzi11/BullshitGenerator">https://github.com/menzi11/BullshitGenerator</a></p><p>作者称之为【狗屁不通文章生成器】，只要给出关键词，就会围绕关键词迅速生成一篇文章，例如小编输入写作文常见的命题【诚信】，啪的一下，就创作完成了！我们可以体会一下：<br><img src="https://img-blog.csdnimg.cn/img_convert/65dc7ec379a2ad0f28d5397de4ba8e12.png"><br>初看一眼，觉得挺牛啊！仔细读几句，发现确实精（狗）妙（屁）绝（不）伦（通）！</p><p>就是那种，语文老师常说的：“假大空”！<br><img src="https://img-blog.csdnimg.cn/img_convert/57f1debf120426f355085302b8c43fa0.png"><br>也没据什么例子说诚信，如果多看几句，你就发现问题了：<br><img src="https://img-blog.csdnimg.cn/img_convert/2181f0546fff986bb8463e11b02eba7d.png"><br>大量堆砌名人名言，显得专业，这样的作文评分如何，其实懂得都懂。</p><p>大家可以自己去在线网址玩玩看：</p><p><a href="https://suulnnka.github.io/BullshitGenerator/index.html">https://suulnnka.github.io/BullshitGenerator/index.html</a></p><p>比较有意思的一点是，最近虽然深度学习发展迅速，之前也出现了通过深度学习模型创作文章，例如GPT-3，该项目的作者说自己没有使用任何深度学习和自然语言处理技术。<br><img src="https://img-blog.csdnimg.cn/img_convert/f86c070bd21061315513df4ccf492f34.png"><br>我们来看看作者的项目代码：<br><img src="https://img-blog.csdnimg.cn/img_convert/2889aa52cdef219e3edf49509b5ccb56.png"><br>在data.json中，可以看到这些句子十分熟悉！<br><img src="https://img-blog.csdnimg.cn/img_convert/81a19d913d401e38b1efd695a2ea7151.png"><br><img src="https://img-blog.csdnimg.cn/img_convert/d16f20ba59b8d5e06df5b38fe40eea62.png"><br>分为：famous、bosh、after、before 四部分，可以理解为话术。</p><p>然后看看index.html<br><img src="https://img-blog.csdnimg.cn/img_convert/5efc41c2b08a7679292020f8b7713b95.png"><br><img src="https://img-blog.csdnimg.cn/img_convert/473d685a90e735796de7e4858f0ad7b7.png"><br><img src="https://img-blog.csdnimg.cn/img_convert/947d570fc6c3adfdb226ae54b1ce405f.png"><br><img src="https://img-blog.csdnimg.cn/img_convert/9a9327fd5f5aa38c17a09712e5a96bd9.png"><br>基本是通过随机抽取的方式，将 名人名言、主题、论述、前后垫话组合在一起，所以读起来觉得有点意思，但是又没啥用！<br>其实这些句子拿来背一背对高考还是有帮助的（doge</p><p>关于写到中文变量名，作者做了解释：</p><p><img src="https://img-blog.csdnimg.cn/img_convert/19584018efdbf0a946423a4b1b47bd0f.png"></p><p>大家看完之后可能觉得原理如此简单，其实拿来唬人还是不错的！</p><p>拜了个拜^_^</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>免费CDN加速</title>
+      <link href="/2022/05/19/%E5%85%8D%E8%B4%B9CDN%E5%8A%A0%E9%80%9F/"/>
+      <url>/2022/05/19/%E5%85%8D%E8%B4%B9CDN%E5%8A%A0%E9%80%9F/</url>
+      
+        <content type="html"><![CDATA[<p>网站不做cdn加速的话，在网站后期流量大了访问起来非常吃力，cdn不仅可以提升网站的访问速度，还可以保护你的网站隐藏源站ip,从而杜绝不友好的人对网站造成伤害，cdn还可以缓解服务器压力，网站做到后期如果你的服务器不升配的话网站会变得像蜗牛一样，但是升配一点点都会增加我们的预算，所以应用cdn是个人站长最划算的方案</p><p>也不知道又拍云是什么时候开始推出这么一个又拍云联盟—加入 UPYUN 联盟的客户每月可获得由 UPYUN 官方赠送的10GB空间和15GB流量，直接收到simplove博主的投稿才知道真有这么一回事。印象当中，又拍云一直是付费的CDN服务，需要购买才能使用。</p><p>不过后来七牛CDN出来后，又拍云先是推出了赠送800G的CDN流量，又过了一段时间又拍云又对流量和空间收费价格进行了大幅度下调，现在又拍云的CDN流量和空间价格算是相当地低廉了。不过，又拍云推出了免费配额还是让我有些惊讶，毕竟维持免费的服务并不是很容易的事情。</p><p>打开UPYUN联盟页面，才知道这个UPYUN 联盟免费CDN服务还是和七牛免费CDN有区别的：凡有意加入UPYUN 联盟的客户，需要在网站或产品底部添加 UPYUN LOGO 链接，链接指向 UPYUN 首页。若联盟成员去除 UPYUN 相关链接，则 UPYUN 在通知该成员后，收回尚未用完的空间和流量，且后续不能再次申请加入UPYUN联盟。</p><p>又拍云对于新用户是每月免费赠送10GB空间和15GB流量，如果是老用户每月赠送：18GB 流量(存储空间的额度折算成流量赠送)，赠送时间：每周四至周五两个工作日内统一处理。享受这个免费服务的代价就是在博客或者网站上添加一个指向又拍云的链接或者Logo。</p><p>对于这一项附加要求，应该给予理解。毕竟在国内如果想要维持优质的免费服务，要么是推送广告，例如QQ、360，要么就是捆绑软件和隐性消费，假如又拍云免费CDN真得能够像付费的CDN那样稳定和可靠，加一个链接也算是一种支持。</p><p>又拍云和七牛CDN比较起来，搭建全站CDN上有点问题，即便是在Wordpress上使用Wp Super Cache配置好CDN，也面临着如何将之前Wordpress所有的静态文件上传到又拍云服务器上。本篇文章就来分享一下用又拍云给Wordpress搭建一个全站的CDN。</p><p>一、又拍云免费CDN申请与使用</p><p>1、UPYUN联盟：</p><p>1、官方网站：<a href="https://www.upyun.com/union.html">https://www.upyun.com/union.html</a></p><p>2、首先是注册UPYUN 用户，老用户直接登录，在您的网站或产品底部添加 UPYUN LOGO 或者链接，发送邮件至 <a href="mailto:&#x6d;&#x61;&#x72;&#107;&#101;&#x74;&#x69;&#x6e;&#103;&#x40;&#x75;&#x70;&#x79;&#x75;&#x6e;&#46;&#99;&#x6f;&#109;">&#x6d;&#x61;&#x72;&#107;&#101;&#x74;&#x69;&#x6e;&#103;&#x40;&#x75;&#x70;&#x79;&#x75;&#x6e;&#46;&#99;&#x6f;&#109;</a> 。内容包括： 1)UPYUN 账号；2)网站地址；3)个人信息：姓名、手机、QQ、邮箱。</p><p>3、审核通过后，会收到邮件提醒。</p><p>4、在流量赠送方面,是一次性赠送一年的流量,即15G*12个月&#x3D;180G 。赠送的存储空间是总共只有10G,并不是说每月都可以上传10G的东西.虽然与官方的宣传不符,不过10G的存储空间肯定是够用的.</p><p>作者也在长期白嫖</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>这回真的要高二见了</title>
+      <link href="/2022/05/19/%E8%BF%99%E5%9B%9E%E7%9C%9F%E7%9A%84%E8%A6%81%E9%AB%98%E4%BA%8C%E8%A7%81%E4%BA%86/"/>
+      <url>/2022/05/19/%E8%BF%99%E5%9B%9E%E7%9C%9F%E7%9A%84%E8%A6%81%E9%AB%98%E4%BA%8C%E8%A7%81%E4%BA%86/</url>
+      
+        <content type="html"><![CDATA[<p>书都拿回家了，这回真的要高二见了</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>好用的下载器IDM</title>
+      <link href="/2022/05/19/%E5%A5%BD%E7%94%A8%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%99%A8idm/"/>
+      <url>/2022/05/19/%E5%A5%BD%E7%94%A8%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%99%A8idm/</url>
+      
+        <content type="html"><![CDATA[<p>说到下载器在国内就不得不提迅雷，迅雷真是伟大，几乎垄断了国内的下载市场，的确，有的时候用迅雷可以下载到很不错的资源，但在没有VIP的情况下，迅雷是不友好的，相信使用迅雷的各位都有被限速过的经历。</p><p>很多时候我们很着急的想下载一个软件、游戏或者视频，可迅雷就是喜欢和你慢慢耗，不整个几天几夜这个大资源你根本下载不下来，更让人吐槽的是即使开通会员下载速度也是有所限制。但大部分人也只能无奈的妥协和作罢。因为一时也找不到更好的下载器。</p><p>那有比迅雷更好的下载器吗？当然有，国外就有一款IDM，IDM英文名全名是Internet Download Manager，翻译成中文名就是“互联网下载管理器”，相比迅雷IDM的下载速度更快更稳定，而且不限速，每个人都可以在官方下载IDM并且享受30天的使用时间，到期后不想购买的可以使用补丁，或者自己清理注册表，可以循环使用。</p><p>IDM支持所有流行的浏览器的扩展，例如Chrome、Firefox、 新旧Edge、Opera扩展安装。</p><p>另外IDM还支持各种插件扩展，扩展了插件后，IDM基本可以通过浏览器下载到任何非版权和非VIP限制的资源，包括B站、优酷、土豆、YouTube等视频。后期的教程会给相应的介绍，敬请关注！</p><p>破解版下载地址：<a href="http://www.winwin7.com/soft/26385.html">http://www.winwin7.com/soft/26385.html</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>这个醒狮杯考试真的服了</title>
+      <link href="/2022/05/18/%E8%BF%99%E4%B8%AA%E9%86%92%E7%8B%AE%E6%9D%AF%E8%80%83%E8%AF%95%E7%9C%9F%E7%9A%84%E6%9C%8D%E4%BA%86/"/>
+      <url>/2022/05/18/%E8%BF%99%E4%B8%AA%E9%86%92%E7%8B%AE%E6%9D%AF%E8%80%83%E8%AF%95%E7%9C%9F%E7%9A%84%E6%9C%8D%E4%BA%86/</url>
+      
+        <content type="html"><![CDATA[<p>真的很无语<br><br>咱就是说线上考试真没必要<br><br>毫无公平性<br><br>而且提交方式极差（一次考试要拍照二十次）<br><br>还不如等回去一起考，就像上期末一样<br><br>当然如果考差了也不能全怪给这些，还是要从自身找原因<br><br>就说这么多，别的不想说<br><br>睡觉去了zZZ</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一款好吃的牛肉干</title>
+      <link href="/2022/05/18/%E4%B8%80%E6%AC%BE%E5%A5%BD%E5%90%83%E7%9A%84%E7%89%9B%E8%82%89%E5%B9%B2/"/>
+      <url>/2022/05/18/%E4%B8%80%E6%AC%BE%E5%A5%BD%E5%90%83%E7%9A%84%E7%89%9B%E8%82%89%E5%B9%B2/</url>
+      
+        <content type="html"><![CDATA[<p>天津市鑫杏林食品有限公司(原名天津市杏林食品厂)生产的“渤海”牌牛肉干及投入大量资金新开发的肉片、肉粒系列产品、牛肉松、猪肉松、鸡肉松、童乐松、鱼松、虾松，原料真实，口味纯正。<br><img src="https://img.alicdn.com/tfscom/i1/209407237/TB2nxtpkVXXXXabXXXXXXXXXXXX_!!209407237.jpg_400x400.jpg"><br>产品二十余年来，深受全国各界人士的一致好评，该厂技术力量雄厚，产品荣获1984年农牧渔业部优质产品奖，1985年天津市优质产品奖，1986年首届中国食品博览会银奖，1989年天津市优质产品奖，1991年天津市特优产品奖，第十一届亚运会标志产品，第四十三届世乒赛标志产品，1996年华北地区畅销产品，曾荣获天津市信得过产品称号。<br><img src="https://img.alicdn.com/tfscom/i2/209407237/TB2uhXikVXXXXbBXXXXXXXXXXXX_!!209407237.jpg_400x400.jpg"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>fake location</title>
+      <link href="/2022/05/18/fake%20location/"/>
+      <url>/2022/05/18/fake%20location/</url>
+      
+        <content type="html"><![CDATA[<p>fake location虚拟位置app免费中文版是专为安卓手机设计的一款虚拟定位软件，一起来捉妖现在被禁用了哦。用户可通过该软件随意调节当前位置，真实模拟定位，无需手机root，支持历史位置保存功能。请勿用来模拟位置打卡，毕竟是不好的操作。</p><p>fake location官网介绍<br>模拟位置 (fakelocation)是一款无需开启模拟位置权限就能模拟地理位置的xposed框架模块，而且无需在设置中开启“模拟位置”权限。可以进行地图搜索，支持android7.0以上版本，并且最新版本支持繁体中文。</p><p>1.打开软件，选择 NOROOT 模式</p><p>2.然后打开开发者选项（点击关于手机一直点版本号即可开启开发者模式），下拉找到点击“选择模拟位置信息应用”，点击进去选择fake location即可</p><p>3.进入fake location。点击右上角的“+”，进入定位设置页面，输入你想要的地址即可，然后点右下角的“√”。</p><p>到这虚拟定位就完成啦！</p><p>下载地址：<a href="http://a.xzfile.com//apk4/fakelocation1.3.1.1_downcc.com.apk">http://a.xzfile.com//apk4/fakelocation1.3.1.1_downcc.com.apk</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微x模块最新版</title>
+      <link href="/2022/05/18/%E5%BE%AEx%E6%A8%A1%E5%9D%97%E6%9C%80%E6%96%B0%E7%89%88/"/>
+      <url>/2022/05/18/%E5%BE%AEx%E6%A8%A1%E5%9D%97%E6%9C%80%E6%96%B0%E7%89%88/</url>
+      
+        <content type="html"><![CDATA[<p>微x模块最新版下载资源推荐给大家!一款非常好用的微信软件辅助工具，软件可以设置放置撤回，自动抢红包，一键转发等等功能，感兴趣的可以来下载。</p><p>微x模块官方版</p><p>【功能介绍】<br>微X模块app具有自动抢红包，一键转发朋友圈小视频、图片、文字，转发语音</p><p>微X模块安卓版可自定义微信通知，文字转语音，转码器等功能</p><p>转mp3为语音，防止别人撤回，防止别人删除朋友圈</p><p>微X模块中非群主@所有人，防止被别人@，朋友圈过滤，朋友圈屏蔽</p><p>微X模块app能够设置群管理员，自动领取转账，一键集赞，管理微信群</p><p>小视频录制时间自定义，自动加好友，自动加附近的人</p><p>自动踢人，自动回复，关键词自动回复，假报语音秒数</p><p>清理僵尸粉，一键自动同意好友请求，防止别人炸群</p><p>【相关介绍】<br>着重介绍一下自动回复内容选项；当你打开自动回复总开关时，可以设置聊天机器人自动回复，可俩款机器人任选其一，图灵机器人和小 i机器人。</p><p>如用图灵机器人，请先在网上关闭APISECRET功能帐号，这时候图灵机器人就可以在您微信开着，但没有时间回复的情况下，自动帮您聊天啦，至于自动回复聊天内容，你要做好挨揍的准备哦<del>哈哈</del></p><p>在自动回复里有一个通用设置和自定义设置和排除名单，顾名思义，自定义设置里可以对好友、群聊、公众号等进行单独设置是否用可爱的图灵机器人帮你忙啦！也可以设置单独排除名单对需要的可以启动，对不需要的不用，简单省事，随你控制！</p><p>【软件特色】<br>-防止微信撤回消息</p><p>-转发微信聊天里的图片和小视频到朋友圈</p><p>-转发聊天里的多张图片（最多9张）到朋友圈</p><p>-转发语音给朋友</p><p>-转发收藏内容</p><p>-转发朋友圈里的内容到自己的朋友圈</p><p>-分享图片和小视频</p><p>-屏蔽群聊成员</p><p>-自动添加“附近的人”界面的陌生人为好友</p><p>-自动添加“雷达加朋友”界面的陌生人为好友</p><p>-自动查找僵尸粉</p><p>-批量删除好友</p><p>-批量删除僵尸粉</p><p>-自动回复</p><p>-自定义表情最高限额</p><p>-自动领取红包、转账</p><p>##特别注意：此模块需hexo搭配xposed框架使用</p><p>下载地址：<br><a href="http://57d5.zhanyu66.com/com.fkzhang.wechatxposed.apk">http://57d5.zhanyu66.com/com.fkzhang.wechatxposed.apk</a></p><p>谢谢</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pandownload复活</title>
+      <link href="/2022/05/18/pandownload%E5%A4%8D%E6%B4%BB/"/>
+      <url>/2022/05/18/pandownload%E5%A4%8D%E6%B4%BB/</url>
+      
+        <content type="html"><![CDATA[<p>近期一款名为伪PanDownload的网盘下载工具出现在大众视野，众所周知之前的PanDownload因某些原因被封禁，这个版本应该是某位大佬重新将其复活，接下来小编带大家体验下到底如何！<br>提示：目前小编分享的资源除了超10GB大文件，其余均采用不限速网盘，摆脱限速。</p><p>功能概述<br>账号登录：能够支持使用自己的百度网盘账号来直接通过此款软件,登录后就能够正常的使用它。<br>文件下载：选中文件或者是选中文件夹,右键鼠标就会弹出菜单，菜单当中有下载功能可以直接选择。<br>分享链接打开：支持在新标签页将分享链接进行输入，然后可以直接将其打开。<br>离线下载：切换到更多功能标签页，选择离线下载功能，击新建BT任务或新建链接任务来添加离线任务<br>加速链接：右上角设置-下载加速链接</p><p>下载安装<br><a href="http://www.pandownload.com/">http://www.pandownload.com/</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>真爽</title>
+      <link href="/2022/05/18/%E7%9C%9F%E7%88%BD/"/>
+      <url>/2022/05/18/%E7%9C%9F%E7%88%BD/</url>
+      
+        <content type="html"><![CDATA[<p>上网课八点十五起床就是舒服</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>今天很开心</title>
+      <link href="/2022/05/17/%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83/"/>
+      <url>/2022/05/17/%E4%BB%8A%E5%A4%A9%E5%BE%88%E5%BC%80%E5%BF%83/</url>
+      
+        <content type="html"><![CDATA[<h1 id="考试真好。。。"><a href="#考试真好。。。" class="headerlink" title="考试真好。。。"></a>考试真好。。。</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
